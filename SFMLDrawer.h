@@ -5,6 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "RedCircle.h"
+#include <iostream>
 
 class SFMLDrawer
 {
@@ -19,13 +20,15 @@ private:
 
 #pragma region figures
 	RedCircle circle;
-	void updateCircle();
+	void updateShape(sf::Shape&);
 
 #pragma endregion figures
 
 	void HandleInput();
 	void Update();
 	void Draw();
+	void centerShape(sf::Shape& );
+	void moveShape(sf::Shape&);
 
 public:
 	SFMLDrawer() : 
@@ -36,7 +39,9 @@ public:
 		circle{30.0f},
 		flagCircle{false},
 		event{}
-	{}
+	{
+		centerShape(circle);
+	}
 
 	void Run();
 };
