@@ -140,9 +140,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RedCircle.cpp" />
     <ClCompile Include="SFMLDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="RedCircle.h" />
     <ClInclude Include="SFMLDrawer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

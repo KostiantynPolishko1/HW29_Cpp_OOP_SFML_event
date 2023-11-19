@@ -4,21 +4,39 @@
 #define SFMLDRAWER_H
 
 #include "SFML/Graphics.hpp"
+#include "RedCircle.h"
 
 class SFMLDrawer
 {
 private:
-	sf::VideoMode windowSize = {500, 500};
-	sf::String windowTitle = "SFML Drawer";
-	sf::Color bgColor = sf::Color(255, 255, 255);
+	bool flagCircle;
+
+	sf::VideoMode windowSize;
+	sf::String windowTitle;
 	sf::RenderWindow window;
+	sf::Color bgColor;
+	sf::Event event;
+
+#pragma region figures
+	RedCircle circle;
+	void updateCircle();
+
+#pragma endregion figures
 
 	void HandleInput();
 	void Update();
 	void Draw();
 
 public:
-	SFMLDrawer() : window(this->windowSize, this->windowTitle) {}
+	SFMLDrawer() : 
+		windowSize{500, 500},
+		windowTitle{"SFML Drawer"},
+		window(this->windowSize, this->windowTitle),
+		bgColor{255, 255, 255},
+		circle{30.0f},
+		flagCircle{false},
+		event{}
+	{}
 
 	void Run();
 };
