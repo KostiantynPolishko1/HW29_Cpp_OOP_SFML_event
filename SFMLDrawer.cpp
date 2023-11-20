@@ -6,6 +6,11 @@ void SFMLDrawer::HandleInput()
 	{
 		if (this->event.type == sf::Event::Closed)
 			this->window.close();
+		else if (this->event.type == sf::Event::MouseMoved) 
+		{
+			this->mousePosition.x = (float)event.mouseMove.x;
+			this->mousePosition.y = (float)event.mouseMove.y;
+		}
 	}
 }
 
@@ -55,13 +60,24 @@ void SFMLDrawer::updateShape(sf::Shape& shape)
 	}
 	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) 
 	{
-		if (sf::Mouse::getPosition(this->window).x >=0 && sf::Mouse::getPosition(this->window).x <= 500)		
-			offset.x = (float)sf::Mouse::getPosition(this->window).x;
-
-		if (sf::Mouse::getPosition(this->window).y >=0 && sf::Mouse::getPosition(this->window).y <= 500)		
+		/*if ((sf::Mouse::getPosition(this->window).x >= 0 && sf::Mouse::getPosition(this->window).x <= 500) &&
+			(sf::Mouse::getPosition(this->window).y >= 0 && sf::Mouse::getPosition(this->window).y <= 500)) 
+		{
+			offset.x = (float)sf::Mouse::getPosition(this->window).x;		
 			offset.y = (float)sf::Mouse::getPosition(this->window).y;
+			std::cout << sf::Mouse::getPosition(this->window).x << " | " << (float)sf::Mouse::getPosition(this->window).y << "\n";
+		}*/
+		
+		sf::Vector2f shapePosition = shape.getPosition();
+		sf::Vector2f direction = mousePosition - shapePosition;
+		float distance = std::sqrt(direction.x*direction.x + direction.y*direction.y);
 
-		//std::cout << sf::Mouse::getPosition(this->window).x << " | " << (float)sf::Mouse::getPosition(this->window).y << "\n";
+		//std::cout << distance << "\n";
+
+		sf::Vector2f normDirection = direction / distance;
+		float moveSpeed = 1000.0f;
+		
+		offset = normDirection * moveSpeed;
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) 
 	{

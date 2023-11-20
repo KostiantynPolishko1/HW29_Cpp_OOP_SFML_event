@@ -17,8 +17,9 @@ private:
 	sf::RenderWindow window;
 	sf::Color bgColor;
 	sf::Event event;
+	sf::Vector2f mousePosition;
 
-#pragma region figures
+#pragma region
 	RedCircle circle;
 	void updateShape(sf::Shape&);
 
@@ -38,7 +39,8 @@ public:
 		bgColor{255, 255, 255},
 		circle{30.0f},
 		flagCircle{false},
-		event{}
+		event{},
+		mousePosition{}
 	{
 		centerShape(circle);
 	}
