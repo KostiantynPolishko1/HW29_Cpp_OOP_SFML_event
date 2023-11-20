@@ -5,6 +5,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "RedCircle.h"
+#include "ArrayFigures.h"
 #include <iostream>
 
 class SFMLDrawer
@@ -20,7 +21,9 @@ private:
 	sf::Vector2f mousePosition;
 
 #pragma region
+	RedCircle* arrCircle;
 	RedCircle circle;
+	int count;
 	void updateShape(sf::Shape&);
 
 #pragma endregion figures
@@ -32,13 +35,15 @@ private:
 	void moveShape(sf::Shape&);
 
 public:
-	SFMLDrawer() : 
-		windowSize{500, 500},
-		windowTitle{"SFML Drawer"},
+	SFMLDrawer() :
+		windowSize{ 500, 500 },
+		windowTitle{ "SFML Drawer" },
 		window(this->windowSize, this->windowTitle),
-		bgColor{255, 255, 255},
-		circle{30.0f},
-		flagCircle{false},
+		bgColor{ 255, 255, 255 },
+		arrCircle{},
+		circle{ 30.0f },
+		flagCircle{ false },
+		count{},
 		event{},
 		mousePosition{}
 	{

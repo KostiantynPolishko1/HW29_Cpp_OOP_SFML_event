@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArrayFigures.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RedCircle.cpp" />
     <ClCompile Include="SFMLDrawer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayFigures.h" />
     <ClInclude Include="RedCircle.h" />
     <ClInclude Include="SFMLDrawer.h" />
   </ItemGroup>

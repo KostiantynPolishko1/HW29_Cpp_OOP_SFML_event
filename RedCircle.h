@@ -7,6 +7,10 @@
 
 class RedCircle final: public sf::CircleShape
 {
+private:
+	float centerX;
+	float centerY;
+
 	void initCircle()
 	{
 		this->setOutlineThickness(1);
@@ -16,12 +20,20 @@ class RedCircle final: public sf::CircleShape
 	}
 public:
 
-	RedCircle() {}
+	RedCircle() : centerX{}, centerY{} {}
 
-	RedCircle(float radius)
+	RedCircle(float radius) : centerX{}, centerY{}
 	{
 		this->initCircle();
 		this->setRadius(radius);
+	}
+
+	void setCenterX(float centerX) {
+		this->centerX = centerX;
+	}
+	
+	void setCenterY(float centerY) {
+		this->centerY = centerY;
 	}
 }
 ;

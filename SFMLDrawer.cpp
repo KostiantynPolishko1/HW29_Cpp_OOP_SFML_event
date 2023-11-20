@@ -4,8 +4,11 @@ void SFMLDrawer::HandleInput()
 {
 	while (this->window.pollEvent(this->event))
 	{
-		if (this->event.type == sf::Event::Closed)
+		if (this->event.type == sf::Event::Closed) {
+			cleanArr(this->arrCircle);
+			this->flagCircle = false;
 			this->window.close();
+		}
 		else if (this->event.type == sf::Event::MouseMoved) 
 		{
 			this->mousePosition.x = (float)event.mouseMove.x;
@@ -24,7 +27,8 @@ void SFMLDrawer::Draw()
 	this->window.clear(this->bgColor);
 
 	if(this->flagCircle)
-		this->window.draw(this->circle);
+		for (size_t i = 0; i < this->count; i++)
+			this->window.draw(*(this->arrCircle + i));
 
 	this->window.display();
 }
@@ -56,9 +60,14 @@ void SFMLDrawer::updateShape(sf::Shape& shape)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) 
 	{
 		shape.setPosition(sf::Vector2f((float)this->event.mouseButton.x, (float)this->event.mouseButton.y));
+		this->circle.setCenterX((float)this->event.mouseButton.x);
+		this->circle.setCenterY((float)this->event.mouseButton.y);
+
+		append(this->arrCircle, this->circle, this->count);
 		this->flagCircle = true;
+		this->count++;
 	}
-	else if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) 
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Middle)) 
 	{
 		/*if ((sf::Mouse::getPosition(this->window).x >= 0 && sf::Mouse::getPosition(this->window).x <= 500) &&
 			(sf::Mouse::getPosition(this->window).y >= 0 && sf::Mouse::getPosition(this->window).y <= 500)) 
@@ -72,13 +81,17 @@ void SFMLDrawer::updateShape(sf::Shape& shape)
 		sf::Vector2f direction = mousePosition - shapePosition;
 		float distance = std::sqrt(direction.x*direction.x + direction.y*direction.y);
 
-		//std::cout << distance << "\n";
-
 		sf::Vector2f normDirection = direction / distance;
-		float moveSpeed = 1000.0f;
+		float moveSpeed = 500.0f;
 		
 		offset = normDirection * moveSpeed;
 	}
+	//else if (this->event.type == sf::Event::MouseWheelScrolled)
+	//{
+	//	std::cout
+	//		<< this->event.mouseWheelScroll.delta << "\n";
+	//}
+
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) 
 	{
 		offset.x = +1;
